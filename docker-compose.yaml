@@ -1,0 +1,26 @@
+version: "3.9"
+services: 
+  # database:
+  #   image: andyleeregistry.azurecr.io/flask-db:1.2
+  #   container_name: mysql
+  #   build: ./db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: flask-db
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+    - target: 80
+      published: 80
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
+  flask-app:
+    image: trio-task-flask:1.2
+    container_name: flask-app
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    build: ./flask-app
+  

@@ -15,7 +15,7 @@ docker build -t flask-app:latest .
 # Build MySQL Database
 cd ..
 cd db/
-docker build -t mydb .
+docker build -t flask-db:latest .
 cd ..
 
 # Run flask app container in the network
@@ -29,4 +29,4 @@ docker run -d --network triplet --name nginx --mount type=bind,source=$(pwd)/ngi
 cd ..
 # Run MySQL container in the network
 cd db/
-docker run -d --network triplet --name mysql mydb:latest
+docker run -d --network triplet --name mysql flask-db:latest
